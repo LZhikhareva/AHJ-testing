@@ -1,0 +1,63 @@
+body {
+    color: #999;
+}
+
+.form-widget {
+    display: grid;
+    grid-template-columns: 200px 115px;
+    grid-template-rows: repeat(3, auto);
+    gap: 10px;
+}
+
+.control {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    width: 100%;
+}
+
+.input {
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.submit {
+    border: 1px solid rgb(54, 202, 54);
+    border-radius: 5px;
+    background-color: rgb(54, 202, 54);
+    color: #fff;
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+}
+
+.error {
+    grid-column: 1 / 3;
+    grid-row: 3 / 4;
+    color: red;
+}
+
+.card-images {
+    display: flex;
+    gap: 10px;
+}
+
+.card-image-item {
+    width: 32px;
+    position: relative;
+    opacity: 0.3;
+}
+
+.active {
+    opacity: 1;
+}
+
+.valid {
+    border: 1px solid green;
+}
+
+.invalid {
+    border: 1px solid red;
+}
+
+
