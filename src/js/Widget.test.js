@@ -37,7 +37,7 @@ describe("Widget", () => {
     widget.definePaySystem("22222");
     expect(images[3].classList.contains("active")).toBe(true);
     widget.definePaySystem("");
-    images.forEach(image => {
+    images.forEach((image) => {
       expect(image.classList.contains("active")).toBe(false);
     });
   });
@@ -45,48 +45,47 @@ describe("Widget", () => {
   test("should show error if the first digit is not 2, 3, 4, or 5", () => {
     widget.definePaySystem("11111");
     expect(widget.errorPaySystem.textContent).toContain(
-      "Данная карта не принадлежит ни к одной из используемых платежных систем! Попробуйте другую!"
+      "Данная карта не принадлежит ни к одной из используемых платежных систем! Попробуйте другую!",
     );
   });
 
   test("should check the invalidity of card number using Lugn algorithm", () => {
-    expect(widget.luhnCheck('55478965612145')).toBe(false);
-  })
+    expect(widget.luhnCheck("55478965612145")).toBe(false);
+  });
 
   test("should check the validity of card number using Lugn algorithm", () => {
-    expect(widget.luhnCheck('5062821234567892')).toBe(true);
-  })
+    expect(widget.luhnCheck("5062821234567892")).toBe(true);
+  });
 
   test("should add 'invalid' class to input if card number in invalid", () => {
-    const invalidCardNumber = '55478965612145';
+    const invalidCardNumber = "55478965612145";
     widget.input.value = invalidCardNumber;
-    const event = new Event('submit');
+    const event = new Event("submit");
     widget.element.dispatchEvent(event);
-    expect(widget.input.classList.contains('invalid')).toBe(true);
+    expect(widget.input.classList.contains("invalid")).toBe(true);
     expect(widget.errorValidation.parentElement).toBe(widget.element);
   });
 
   test("should add 'valid' class to input if card number in valid", () => {
-    const validCardNumber = '5062821234567892';
+    const validCardNumber = "5062821234567892";
     widget.input.value = validCardNumber;
-    const event = new Event('submit');
+    const event = new Event("submit");
     widget.element.dispatchEvent(event);
-    expect(widget.input.value).toBe('');
-    expect(widget.input.classList.contains('valid')).toBe(true);
+    expect(widget.input.value).toBe("");
+    expect(widget.input.classList.contains("valid")).toBe(true);
   });
 
   test("should show error if card number in invalid", () => {
-    const invalidCardNumber = '55478965612145';
+    const invalidCardNumber = "55478965612145";
     widget.input.value = invalidCardNumber;
-    const event = new Event('submit');
+    const event = new Event("submit");
     widget.element.dispatchEvent(event);
     expect(widget.errorValidation.textContent).toContain(
-      "Недействительный номер карты!"
+      "Недействительный номер карты!",
     );
-  })
+  });
 
   afterEach(() => {
     document.body.removeChild(element);
   });
-})
-
+});
