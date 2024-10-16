@@ -108,6 +108,9 @@ export class Widget {
     } else {
       this.input.classList.add("invalid");
       this.input.classList.remove("valid");
+      if (this.errorPaySystem) {
+        this.deleteErrorPaySystem();
+      }
       this.showErrorValidation();
     }
   }

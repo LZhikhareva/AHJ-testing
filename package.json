@@ -7,7 +7,7 @@
     "start": "webpack-dev-server --mode development",
     "build": "webpack --mode production",
     "lint": "eslint . --fix",
-   "test": "jest --testPathPattern=./src/ --env=jsdom",
+    "test": "jest --testPathPattern=./src/ --env=jsdom",
     "coverage": "jest --testPathPattern=./src/ --coverage",
     "e2e": "jest --testPathPattern=./e2e/ --runInBand",
     "preshow:coverage": "npm run coverage",

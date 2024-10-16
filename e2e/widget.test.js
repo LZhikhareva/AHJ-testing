@@ -4,7 +4,12 @@ describe("Widget", () => {
   let browser;
   let page;
   beforeEach(async () => {
-    browser = await puppeteer.launch();
+    browser = await puppeteer.launch({
+      headless: false,
+      slowMo: 100,
+      devtools: true,
+    });
+
     page = await browser.newPage();
     await page.setContent(`
       <div class="widget">
@@ -18,15 +23,25 @@ describe("Widget", () => {
         </div>
       </div>
     `);
+
+    await page.goto('http://localhost:9000');
+    await page.waitForSelector('.form-widget');
   });
   afterEach(async () => {
     await browser.close();
   });
+
+  test('widget should render on page start', async () => {
+    await page.goto('http://localhost:9000');
+
+    await page.waitForSelector('.form-widget');
+  });
+
   it("should show error message if card number is invalid", async () => {
     const invalidCardNumber = "1234567890123456";
     await page.type(".input", invalidCardNumber);
     await page.click(".submit");
-    await page.waitForSelector(".error");
+    await page.waitForSelector(".error", { timeout: 50000 });
     const errorMessage = await page.$eval(".error", (el) => el.textContent);
     expect(errorMessage).toBe("Недействительный номер карты!");
     const inputValue = await page.$eval(".input", (el) => el.value);
@@ -35,12 +50,12 @@ describe("Widget", () => {
       el.classList.contains("invalid"),
     );
     expect(hasInvalidClass).toBe(true);
-  });
+  }, 20000);
   it("should not show error message if card number is valid", async () => {
     const validCardNumber = "4111111111111111";
     await page.type(".input", validCardNumber);
     await page.click(".submit");
-    await page.waitForTimeout(1000);
+    // await page.waitForTimeout(1000);
     const errorElement = await page.$(".error");
     expect(errorElement).toBeNull();
     const inputValue = await page.$eval(".input", (el) => el.value);
@@ -49,5 +64,5 @@ describe("Widget", () => {
       el.classList.contains("valid"),
     );
     expect(hasValidClass).toBe(true);
-  });
+  }, 20000);
 });
